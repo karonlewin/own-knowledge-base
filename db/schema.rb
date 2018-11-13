@@ -10,13 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181109132758) do
+ActiveRecord::Schema.define(version: 20181113191544) do
 
   create_table "annotations", force: :cascade do |t|
     t.text "title"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.datetime "date"
+    t.boolean "done"
+    t.integer "annotation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "reviewable_id"
+    t.string "reviewable_type"
+    t.index ["annotation_id"], name: "index_reviews_on_annotation_id"
   end
 
 end
