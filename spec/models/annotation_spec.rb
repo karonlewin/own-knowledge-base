@@ -26,6 +26,7 @@ describe Annotation do
         review_dates_array << (review_date).to_date
       end
 
+      generated_reviews = new_annotation.reviews.reduce([]) {|array, review| array << review.date.to_date}
       expect(review_dates_array).to eq(generated_reviews)
     end
   end
