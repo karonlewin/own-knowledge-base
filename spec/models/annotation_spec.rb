@@ -2,32 +2,21 @@ require 'rails_helper'
 
 describe Annotation do
 
-  WEEKLY_REVIEWS = 8
-  MONTHLY_REVIEWS = 12
-
   context 'generating reviews' do
-    let(:annotation) { build :annotation }
-
-    it 'generate all reviews after create a annotation' do
+    it 'generate a weekly review after create a annotation' do
       new_annotation = build :annotation
 
-      expect{new_annotation.save!}.to change(Review, :count).by(20)
+      expect{new_annotation.save!}.to change(Review, :count).by(1)
+      expect(Review.last.date.to_date).to eq((new_annotation.created_at + 1.weeks).to_date)
+    end
 
-      review_dates_array = []
-      review_date = new_annotation.created_at
+    it 'generate a weekly review when an annotation is being reviewed' do
+      annotation = create :annotation
 
-      WEEKLY_REVIEWS.times do
-        review_date += 7.days
-        review_dates_array << (review_date).to_date
-      end
+      first_week_review = annotation.reviews.last
 
-      MONTHLY_REVIEWS.times do
-        review_date += 1.months
-        review_dates_array << (review_date).to_date
-      end
-
-      generated_reviews = new_annotation.reviews.reduce([]) {|array, review| array << review.date.to_date}
-      expect(review_dates_array).to eq(generated_reviews)
+      expect{first_week_review.mark_as_done}.to change(Review, :count).by(1)
+      expect(annotation.reviews.last.date.to_date).to eq((first_week_review.date + 1.weeks).to_date)
     end
   end
 end

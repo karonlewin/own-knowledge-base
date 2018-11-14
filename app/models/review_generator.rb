@@ -2,32 +2,19 @@ module ReviewGenerator
   WEEKLY_REVIEWS = 8
   MONTHLY_REVIEWS = 12
 
-  def generate_reviews
-    generate_weekly
-    generate_monthly
-  end
+  def generate_next_review
+    next_review_date = nil
 
-  def generate_weekly
-    review_date = self.created_at
-
-    WEEKLY_REVIEWS.times do
-      review_date += 1.weeks
-      review = Review.new
-      review.reviewable = self
-      review.date = review_date
-      review.save
+    if reviews.count == 0
+      next_review_date = created_at + 1.weeks
+    elsif reviews.count < WEEKLY_REVIEWS
+      next_review_date = reviews.last.date + 1.weeks
+    elsif reviews.count < (WEEKLY_REVIEWS + MONTHLY_REVIEWS)
+      next_review_date = reviews.last.date + 1.month
     end
-  end
 
-  def generate_monthly
-    review_date = self.created_at + WEEKLY_REVIEWS.weeks
-
-    MONTHLY_REVIEWS.times do
-      review_date += 1.months
-      review = Review.new
-      review.reviewable = self
-      review.date = review_date
-      review.save
+    if next_review_date
+      Review.create(date: next_review_date, reviewable: self)
     end
   end
 end
