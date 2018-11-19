@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryBot.define do
   factory :annotation do
-    title { Faker::RickAndMorty.character }
+    title { Faker::Name.unique.name }
     content { Faker::RickAndMorty.quote }
 
     factory :annotation_2_weekly_reviews_done do
