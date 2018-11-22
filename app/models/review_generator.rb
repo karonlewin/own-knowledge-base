@@ -1,6 +1,8 @@
 module ReviewGenerator
-  WEEKLY_REVIEWS = 8
-  MONTHLY_REVIEWS = 12
+  ReviewGenerator::WEEKLY_REVIEWS = 8
+  ReviewGenerator::MONTHLY_REVIEWS = 12
+  ReviewGenerator::TOTAL_REVIEWS = WEEKLY_REVIEWS + MONTHLY_REVIEWS
+
 
   def generate_next_review
     next_review_date = nil
