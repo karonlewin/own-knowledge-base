@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.feature 'User at dashboard:' do
   context 'reviewing annotations:' do
+    before { login_as(user, :scope => :user) }
+
+    let(:user)  { create :user }
 
     it 'user sees just 1 unreviewed annotations in 3 weeks:' do
       annotation = create :annotation
