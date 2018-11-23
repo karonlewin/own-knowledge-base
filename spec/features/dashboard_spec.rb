@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'User at dashboard:' do
-
-
   context 'reviewing annotations:' do
 
     it 'user sees just 1 unreviewed annotations in 3 weeks:' do
@@ -11,7 +9,7 @@ RSpec.feature 'User at dashboard:' do
 
       Timecop.travel(DateTime.now + 1.weeks) do
         visit dashboard_path
-        
+
         expect(page).to have_text(reviews.first.id)
       end
     end
