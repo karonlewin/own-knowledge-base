@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Next Review</th>
       <th>Title</th>
       <th>Content</th>
       <th colspan="3"></th>
@@ -14,6 +15,7 @@
   <tbody>
     <% @annotations.each do |annotation| %>
       <tr>
+        <td><%= annotation.next_review.date.strftime("%d/%m/%Y") %></td>
         <td><%= annotation.title %></td>
         <td><%= annotation.content %></td>
         <td><%= link_to 'Show', annotation %></td>

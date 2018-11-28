@@ -29,7 +29,5 @@ RSpec.feature 'User at dashboard:' do
         expect(page).to have_text(reviews.last.id)
       end
     end
-
   end
-
 end
