@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+
+a = Annotation.create(title: 'test', content: 'content test')
+r = a.reviews.first
+r.date = DateTime.now
+r.save!
