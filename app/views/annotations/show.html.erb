@@ -10,5 +10,11 @@
   <%= @annotation.content %>
 </p>
 
+<p>
+  <strong>Next review date:</strong>
+  <%= @annotation.next_review.date.strftime("%d/%m/%Y") %>
+</p>
+
+
 <%= link_to 'Edit', edit_annotation_path(@annotation) %> |
 <%= link_to 'Back', annotations_path %>

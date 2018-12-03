@@ -2,6 +2,11 @@
   <% @reviews.each do |review| %>
   <li>
     <%= review.id %>
+    <%= review.reviewable.title %>
+    <%= review.reviewable.content %>
+    <%= link_to 'Done', mark_review_as_done_path(review),
+        :method => :put, data: { confirm: "Are you sure??" },
+        id: "mark_review_as_done_#{review.id}" %>
   </li>
   <% end %>
 </ul>
