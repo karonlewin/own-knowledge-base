@@ -6,7 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Review.destroy_all
+Annotation.destroy_all
+User.destroy_all
 
+User.create(email: 'karon@karon.com', password: '123456')
 
 a = Annotation.create(title: 'test', content: 'content test')
 r = a.reviews.first
