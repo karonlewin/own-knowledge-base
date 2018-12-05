@@ -237,7 +237,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  autoprefixer-rails
   awesome_print
   byebug
   capybara
