@@ -5,6 +5,7 @@
   <thead>
     <tr>
       <th>Review Date</th>
+      <th>Category</th>
       <th>Title</th>
       <th>Content</th>
       <th colspan="3"></th>
@@ -15,6 +16,7 @@
     <% @reviews.each do |review| %>
       <tr>
         <td><%= review.date.strftime("%d/%m/%Y") %></td>
+        <td><%= review.reviewable.category.name %></td>
         <td><%= review.reviewable.title %></td>
         <td><%= review.reviewable.content %></td>
         <td>
