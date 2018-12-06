@@ -8,11 +8,15 @@
 
 Review.destroy_all
 Annotation.destroy_all
+Category.destroy_all
 User.destroy_all
 
 User.create(email: 'karon@karon.com', password: '123456')
 
-a = Annotation.create(title: 'test', content: 'content test')
+a = Category.create(name: 'category 1')
+Category.create(name: 'category 2')
+
+a = Annotation.create(title: 'test', content: 'content test', category: a)
 r = a.reviews.first
 r.date = DateTime.now
 r.save!

@@ -11,6 +11,11 @@
 </p>
 
 <p>
+  <strong>Category:</strong>
+  <%= @annotation.category.name %>
+</p>
+
+<p>
   <strong>Next review date:</strong>
   <%= @annotation.next_review.date.strftime("%d/%m/%Y") %>
 </p>

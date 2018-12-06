@@ -1,27 +1,43 @@
-<%= form_with(model: annotation, local: true) do |form| %>
-  <% if annotation.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(annotation.errors.count, "error") %> prohibited this annotation from being saved:</h2>
 
-      <ul>
-      <% annotation.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<div class="row">
+  <%= form_with(model: annotation, local: true, :html => {:class => 'col s12'}) do |form| %>
+    <div class="row">
+      <% if annotation.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(annotation.errors.count, "error") %> prohibited this annotation from being saved:</h2>
+
+          <ul>
+          <% annotation.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= form.label :title %>
+        <%= form.text_field :title, id: :annotation_title, class: 'active' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= form.label :content %>
+        <%= form.text_field :content, id: :annotation_content %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= form.collection_select(:category_id, Category.all, :id, :name, :id => "choose-category") %>
+        <%= form.label :category %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= form.button 'Save', type: :submit, class: 'waves-effect waves-light btn' %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_area :title, id: :annotation_title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content, id: :annotation_content %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
