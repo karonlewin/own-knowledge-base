@@ -37,6 +37,7 @@ gem 'rubocop-rspec'
 gem 'timecop'
 gem 'launchy'
 gem 'pg'
+gem 'jquery-rails'
 gem 'materialize-sass', '~> 1.0.0'
 
 group :development, :test do
