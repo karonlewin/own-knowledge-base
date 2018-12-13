@@ -42,4 +42,12 @@ describe Review do
       expect{last_review.mark_as_done}.to_not change(Review, :count)
     end
   end
+
+  context 'Removing reviews:' do
+    it 'remove all reviews when a reviewable is being deleted:' do
+      annotation = create :annotation_2_weekly_reviews_done
+
+      expect{annotation.destroy}.to change(Review, :count).by(-3)
+    end
+  end
 end
