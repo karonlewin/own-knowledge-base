@@ -10,9 +10,9 @@ module ReviewGenerator
     if reviews.count == 0
       next_review_date = created_at + 1.weeks
     elsif reviews.count < WEEKLY_REVIEWS
-      next_review_date = reviews.last.date + 1.weeks
+      next_review_date = DateTime.now + 1.weeks
     elsif reviews.count < (WEEKLY_REVIEWS + MONTHLY_REVIEWS)
-      next_review_date = reviews.last.date + 1.month
+      next_review_date = DateTime.now + 1.month
     end
 
     if next_review_date
