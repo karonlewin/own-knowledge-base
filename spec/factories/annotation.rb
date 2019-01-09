@@ -5,7 +5,7 @@ FactoryBot.define do
     title { Faker::Name.unique.name }
     content { Faker::RickAndMorty.quote }
     category
-
+    user
 
     factory :annotation_2_weekly_reviews_done do
       after :create do |annotation|
