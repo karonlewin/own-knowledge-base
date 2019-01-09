@@ -1,9 +1,11 @@
 class Review < ApplicationRecord
   belongs_to :reviewable, polymorphic: true
+  belongs_to :user
   scope :pending, -> { where(done: nil) }
+  scope :by_user_id, ->(user_id) { where(user_id: user_id) }
 
   def reviewable_type=(class_name)
-     super(class_name.constantize.base_class.to_s)
+   super(class_name.constantize.base_class.to_s)
   end
 
   def self.today_reviews
