@@ -25,6 +25,7 @@ class AnnotationsController < ApplicationController
   # POST /annotations.json
   def create
     @annotation = Annotation.new(annotation_params)
+    @annotation.user = current_user
 
     respond_to do |format|
       if @annotation.save

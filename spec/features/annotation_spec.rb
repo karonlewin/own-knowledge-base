@@ -29,4 +29,27 @@ RSpec.feature 'User managing annotations:' do
       expect(page).to_not have_text(annotation_from_other_user.title)
     end
   end
+
+  context 'managing annotations:' do
+    before { login_as(user, :scope => :user) }
+
+    let(:user)  { create :user }
+    let!(:category) { create :category, user: user }
+
+    it 'user create an annotation:' do
+      visit annotations_path
+
+      click_link 'New Annotation'
+
+      fill_in 'Title', with: 'Some Title'
+      fill_in 'Content', with: 'Some Content'
+      select category.name, from: 'choose-category'
+
+      click_button 'Save'
+
+      expect(page).to have_text('Some Title')
+      expect(page).to have_text('Some Content')
+      expect(page).to have_text(category.name)
+    end
+  end
 end
