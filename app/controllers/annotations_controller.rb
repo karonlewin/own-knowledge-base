@@ -4,7 +4,7 @@ class AnnotationsController < ApplicationController
   # GET /annotations
   # GET /annotations.json
   def index
-    @annotations = Annotation.all
+    @annotations = Annotation.by_user_id(current_user.id)
   end
 
   # GET /annotations/1
