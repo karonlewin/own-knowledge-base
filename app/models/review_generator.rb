@@ -16,7 +16,7 @@ module ReviewGenerator
     end
 
     if next_review_date
-      Review.create(date: next_review_date, reviewable: self)
+      Review.create(date: next_review_date, reviewable: self, user: self.user)
     end
   end
 end

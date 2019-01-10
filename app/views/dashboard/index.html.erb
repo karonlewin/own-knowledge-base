@@ -16,7 +16,10 @@
   <tbody>
     <% @reviews.each do |review| %>
       <tr>
-        <td><%= review.id %></td>
+        <td>
+          <%= review.id %>
+          <input type="hidden" id="review_<%= review.id %>" value="<%= review.id %>">
+        </td>
         <td><%= review.date.strftime("%d/%m/%Y") %></td>
         <td><%= review.reviewable.category.name %></td>
         <td><%= review.reviewable.title %></td>
