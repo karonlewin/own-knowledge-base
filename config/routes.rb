@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   resources :annotations
 
   put '/mark_review_as_done/:id' => 'reviews#mark_as_done', as: 'mark_review_as_done'
+
+  get '/testing_email' => 'dashboard#testing_email', as: 'testing_email'
 end
