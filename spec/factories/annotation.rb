@@ -2,10 +2,10 @@ require 'faker'
 
 FactoryBot.define do
   factory :annotation do
-    title { Faker::Name.unique.name }
+    title { Faker::RickAndMorty.unique.location }
     content { Faker::RickAndMorty.quote }
-    category
-    user
+    association :category
+    association :user
 
     factory :annotation_2_weekly_reviews_done do
       after :create do |annotation|
@@ -29,6 +29,11 @@ FactoryBot.define do
           annotation.reviews.last.mark_as_done
         end
       end
+    end
+
+    factory :annotation_to_be_reminded_by_email do
+      user
+      category { create :category, user: user }
     end
   end
 end

@@ -5,6 +5,13 @@
     <title></title>
   </head>
   <body>
-      TESTING! REVIEWS!
+      Some of your annotations need to be reviewed:
+      <ul>
+        <% @reviews.each do |review| %>
+          <li>
+            <%= review.reviewable.title %> | <%= review.date.strftime("%d/%m/%Y") %>
+          </li>
+        <% end %>
+      </ul>
   </body>
 </html>
