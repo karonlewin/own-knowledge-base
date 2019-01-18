@@ -22,7 +22,7 @@ RSpec.describe ReviewMailer, type: :mailer do
 
     it 'renders the body' do
       expect(mail.body.encoded).to match(annotation.title)
-      expect(mail.body.encoded).to match(annotation.reviews.last.date.to_date.to_s)
+      expect(mail.body.encoded).to match(annotation.reviews.last.date.strftime("%d/%m/%Y"))
       expect(mail.body.encoded).to match(other_annotation.title)
       expect(mail.body.encoded).to match(other_annotation.reviews.last.date.strftime("%d/%m/%Y"))
     end
