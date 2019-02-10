@@ -50,6 +50,37 @@ RSpec.feature 'User at dashboard:' do
         actual_review.reload
         expect(actual_review.done).to eq true
       end
+    end
+
+    it 'user marking all reviews as done with 1 click:' do
+      annotations = []
+      reviews = []
+      (1..3).each do |n|
+        annotation = create :annotation, user: user
+        annotations << annotation
+        reviews << annotation.next_review
+      end
+
+      Timecop.travel(DateTime.now + 1.weeks) do
+        visit dashboard_path
+
+        expect(page).to have_selector('input#review_' << reviews.first.id.to_s, visible: :all)
+        expect(page).to have_selector('input#review_' << reviews.second.id.to_s, visible: :all)
+        expect(page).to have_selector('input#review_' << reviews.last.id.to_s, visible: :all)
+
+        expect{
+          click_link "mark_all_reviews_as_done"
+        }.to change(Review, :count).by(3)
+
+        expect(page).to have_text 'Congratulations! All reviews done.'
+
+        reviews.first.reload
+        expect(reviews.first.done).to eq true
+        reviews.second.reload
+        expect(reviews.second.done).to eq true
+        reviews.last.reload
+        expect(reviews.last.done).to eq true
+      end
 
     end
 
