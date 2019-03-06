@@ -43,7 +43,8 @@ RSpec.feature 'User at dashboard:' do
 
         expect{
           click_link "mark_review_as_done_#{actual_review.id}"
-        }.to change(annotation.reload.reviews, :count).by(1)
+          sleep(2)
+        }.to change(Review, :count).by(1)
 
         expect(page).to have_text 'Congratulations! Review done.'
 
