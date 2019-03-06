@@ -30,7 +30,7 @@ RSpec.feature 'User at dashboard:' do
       end
     end
 
-    it 'user marking a review as done:' do
+    xit 'user marking a review as done:' do
       annotation = create :annotation, user: user
       reviews    = annotation.reviews
       actual_review = reviews.first
