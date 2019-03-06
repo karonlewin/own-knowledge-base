@@ -37,6 +37,8 @@ end
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
 
+  config.wait_timeout = 3 # seconds
+
   config.use_transactional_fixtures = false
 
   config.before(:suite) do
