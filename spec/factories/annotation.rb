@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryBot.define do
   factory :annotation do
-    title { Faker::RickAndMorty.unique.location }
+    title { Faker::RickAndMorty.location }
     content { Faker::RickAndMorty.quote }
     association :category
     association :user
