@@ -41,12 +41,10 @@ RSpec.feature 'User at dashboard:' do
         expect(actual_review.done).to eq nil
         expect(page).to have_selector('input#review_' << actual_review.id.to_s, visible: :all)
 
-        puts Review.count
-        # expect{
+        expect{
           click_link "mark_review_as_done_#{actual_review.id}"
-        # }.to change(Review, :count).by(1)
-
-        puts Review.count
+          Review.all.reload
+        }.to change(Review, :count).by(1)
 
         expect(page).to have_text 'Congratulations! Review done.'
 
