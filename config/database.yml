@@ -16,13 +16,4 @@ test:
   pool: 5
   username: 'own-knowledge-base'
   password: '123456'
-  port: 6666
-
-circleci:
-  host: localhost
-  adapter: postgresql
-  encoding: unicode
-  database: 'own-knowledge-base_test'
-  pool: 5
-  username: 'own-knowledge-base'
-  password: '123456'
+  # port: 6666
