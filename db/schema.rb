@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20190110165203) do
   create_table "reviews", force: :cascade do |t|
     t.datetime "date"
     t.boolean "done"
-    t.integer "annotation_id"
+    t.bigint "annotation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "reviewable_id"
@@ -62,5 +62,6 @@ ActiveRecord::Schema.define(version: 20190110165203) do
   add_foreign_key "annotations", "categories"
   add_foreign_key "annotations", "users"
   add_foreign_key "categories", "users"
+  add_foreign_key "reviews", "annotations"
   add_foreign_key "reviews", "users"
 end

@@ -10,7 +10,7 @@ class ReviewsController < ApplicationController
   end
 
   def mark_all_reviews_as_done
-    Review.today_reviews.each do |review|
+    Review.today_reviews(current_user.id).each do |review|
       review.mark_as_done
     end
     flash[:notice] = 'Congratulations! All reviews done.'
@@ -19,8 +19,15 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def randomize_non_reviewed
+    Review.randomize_non_reviewed(current_user.id)
+    flash[:notice] = 'Reviews randomized into the next week! Keep going!'
+    respond_to do |format|
+      format.html { redirect_to dashboard_path }
+    end
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_review
       @review = Review.find(params[:id])
     end

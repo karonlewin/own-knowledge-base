@@ -18,6 +18,11 @@
     <%= link_to 'Mark All Done', mark_all_reviews_as_done_path,
       :method => :get, data: { confirm: "Are you sure??" },
       id: "mark_all_reviews_as_done" %>
+    &nbsp; | &nbsp;
+    <%= link_to 'OMG, this is too much for one day!!!', randomize_non_reviewed_path,
+      :method => :get, data: { confirm: "Are you sure??" },
+      id: "randomize_non_reviewed" %>
+
     <% @reviews.each do |review| %>
       <tr>
         <td>

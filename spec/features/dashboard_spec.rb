@@ -96,4 +96,24 @@ RSpec.feature 'User at dashboard:' do
       end
     end
   end
+
+  context 'distributing reviews:' do
+    it 'user wants to distribute his reviews into the current week because its too much for one day:' do
+      (1..30).each do |n|
+        annotation = create :annotation, user: user
+      end
+
+      Timecop.travel(DateTime.now + 1.weeks) do
+        visit dashboard_path
+        expect(page).to have_link('Done', count: 31) # considering the "mark all done" link
+
+        click_link "OMG, this is too much for one day!!!"
+
+        # 30/7 = 4, 30%7 = 2 (but it'll be splited)
+        # So it'll be: 4 + 1 + 1 from "mark all done"
+        expect(page).to have_link('Done', count: 6)
+        expect(page).to have_text 'Reviews randomized into the next week! Keep going!'
+      end
+    end
+  end
 end
