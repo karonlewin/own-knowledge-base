@@ -19,6 +19,14 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def randomize_non_reviewed
+    Review.randomize_non_reviewed(current_user.id)
+    flash[:notice] = 'Reviews randomized into the next week! Keep going!'
+    respond_to do |format|
+      format.html { redirect_to dashboard_path }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_review
