@@ -10,7 +10,7 @@ class ReviewsController < ApplicationController
   end
 
   def mark_all_reviews_as_done
-    Review.today_reviews.each do |review|
+    Review.today_reviews(current_user.id).each do |review|
       review.mark_as_done
     end
     flash[:notice] = 'Congratulations! All reviews done.'
