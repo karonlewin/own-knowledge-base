@@ -70,4 +70,24 @@ describe Review do
       expect{annotation.destroy}.to change(Review, :count).by(-3)
     end
   end
+
+  context 'Distributing 7 reviews when is too many for one day:' do
+    it 'randomizing in a week:' do
+      user = create :user
+
+      (1..7).each do |n|
+        create :annotation, user: user
+      end
+
+      Timecop.travel(DateTime.now + 1.weeks) do
+        expect(Review.today_reviews(user.id).count).to eq(7)
+
+        Review.randomize_non_reviewed(user.id)
+
+        Review.by_user_id(user.id).pending.order(:date).each_with_index do |review, index|
+          expect(review.date.to_date).to eq((DateTime.now + index.days).to_date)
+        end
+      end
+    end
+  end
 end
