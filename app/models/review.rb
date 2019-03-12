@@ -22,7 +22,7 @@ class Review < ApplicationRecord
     day_counter = 0
 
     shuffled_reviews.each do |review|
-      review.update_attribute(:date, review.date + day_counter.days)
+      review.update_attribute(:date, DateTime.now + day_counter.days)
       if day_counter == 6
         day_counter = 0
       else

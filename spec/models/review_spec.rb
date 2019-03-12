@@ -71,12 +71,32 @@ describe Review do
     end
   end
 
-  context 'Distributing 7 reviews when is too many for one day:' do
-    it 'randomizing in a week:' do
+  context 'Distributing reviews when is too many for one day:' do
+    it 'randomizing 7 reviews in a week:' do
       user = create :user
 
       (1..7).each do |n|
         create :annotation, user: user
+      end
+
+      Timecop.travel(DateTime.now + 1.weeks) do
+        expect(Review.today_reviews(user.id).count).to eq(7)
+
+        Review.randomize_non_reviewed(user.id)
+
+        Review.by_user_id(user.id).pending.order(:date).each_with_index do |review, index|
+          expect(review.date.to_date).to eq((DateTime.now + index.days).to_date)
+        end
+      end
+    end
+
+    it 'randomizing 7 reviews from different dates in a week:' do
+      user = create :user
+
+      (1..7).each do |n|
+        annotation = create :annotation, user: user
+        review = annotation.reviews.first
+        review.update_attribute(:date, review.date - rand(1..10).days)
       end
 
       Timecop.travel(DateTime.now + 1.weeks) do
