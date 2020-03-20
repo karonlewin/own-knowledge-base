@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.feature 'User at dashboard:' do
-
-  before { login_as(user, :scope => :user) }
-  let(:user)  { create :user }
+  before { login_as(user, scope: :user) }
+  let(:user) { create :user }
 
   context 'reviewing annotations:' do
     it 'user sees just 1 unreviewed annotation in 1 week from now:' do
@@ -41,9 +42,9 @@ RSpec.feature 'User at dashboard:' do
         expect(actual_review.done).to eq nil
         expect(page).to have_selector('input#review_' << actual_review.id.to_s, visible: :all)
 
-        expect{
+        expect do
           click_link "mark_review_as_done_#{actual_review.id}"
-        }.to change(Review, :count).by(1)
+        end.to change(Review, :count).by(1)
 
         expect(page).to have_text 'Congratulations! Review done.'
 
@@ -55,7 +56,7 @@ RSpec.feature 'User at dashboard:' do
     it 'user marking all reviews as done with 1 click:' do
       annotations = []
       reviews = []
-      (1..3).each do |n|
+      (1..3).each do |_n|
         annotation = create :annotation, user: user
         annotations << annotation
         reviews << annotation.next_review
@@ -68,9 +69,9 @@ RSpec.feature 'User at dashboard:' do
         expect(page).to have_selector('input#review_' << reviews.second.id.to_s, visible: :all)
         expect(page).to have_selector('input#review_' << reviews.last.id.to_s, visible: :all)
 
-        expect{
-          click_link "mark_all_reviews_as_done"
-        }.to change(Review, :count).by(3)
+        expect do
+          click_link 'mark_all_reviews_as_done'
+        end.to change(Review, :count).by(3)
 
         expect(page).to have_text 'Congratulations! All reviews done.'
 
@@ -81,7 +82,6 @@ RSpec.feature 'User at dashboard:' do
         reviews.last.reload
         expect(reviews.last.done).to eq true
       end
-
     end
 
     it 'user cannot read other user\'s reviews:' do
@@ -99,7 +99,7 @@ RSpec.feature 'User at dashboard:' do
 
   context 'distributing reviews:' do
     it 'user wants to distribute his reviews into the current week because its too much for one day:' do
-      (1..30).each do |n|
+      (1..30).each do |_n|
         annotation = create :annotation, user: user
       end
 
@@ -107,7 +107,7 @@ RSpec.feature 'User at dashboard:' do
         visit dashboard_path
         expect(page).to have_link('Done', count: 31) # considering the "mark all done" link
 
-        click_link "OMG, this is too much for one day!!!"
+        click_link 'OMG, this is too much for one day!!!'
 
         # 30/7 = 4, 30%7 = 2 (but it'll be splited)
         # So it'll be: 4 + 1 + 1 from "mark all done"

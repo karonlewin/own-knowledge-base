@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 module ReviewGenerator
   ReviewGenerator::WEEKLY_REVIEWS = 8
   ReviewGenerator::MONTHLY_REVIEWS = 12
   ReviewGenerator::TOTAL_REVIEWS = WEEKLY_REVIEWS + MONTHLY_REVIEWS
-
 
   def generate_next_review
     next_review_date = nil
@@ -16,7 +17,7 @@ module ReviewGenerator
     end
 
     if next_review_date
-      Review.create(date: next_review_date, reviewable: self, user: self.user)
+      Review.create(date: next_review_date, reviewable: self, user: user)
     end
   end
 end

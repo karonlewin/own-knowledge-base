@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faker'
 
 FactoryBot.define do
@@ -17,7 +19,7 @@ FactoryBot.define do
 
     factory :annotation_on_the_last_weekly_review do
       after :create do |annotation|
-        (ReviewGenerator::WEEKLY_REVIEWS-1).times do
+        (ReviewGenerator::WEEKLY_REVIEWS - 1).times do
           annotation.reviews.last.mark_as_done
         end
       end
@@ -25,7 +27,7 @@ FactoryBot.define do
 
     factory :annotation_on_the_last_review_ever do
       after :create do |annotation|
-        (ReviewGenerator::TOTAL_REVIEWS-1).times do
+        (ReviewGenerator::TOTAL_REVIEWS - 1).times do
           annotation.reviews.last.mark_as_done
         end
       end

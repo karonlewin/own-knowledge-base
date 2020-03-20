@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ReviewMailer, type: :mailer do
@@ -22,9 +24,9 @@ RSpec.describe ReviewMailer, type: :mailer do
 
     it 'renders the body' do
       expect(mail.body.encoded).to match(annotation.title)
-      expect(mail.body.encoded).to match(annotation.reviews.last.date.strftime("%d/%m/%Y"))
+      expect(mail.body.encoded).to match(annotation.reviews.last.date.strftime('%d/%m/%Y'))
       expect(mail.body.encoded).to match(other_annotation.title)
-      expect(mail.body.encoded).to match(other_annotation.reviews.last.date.strftime("%d/%m/%Y"))
+      expect(mail.body.encoded).to match(other_annotation.reviews.last.date.strftime('%d/%m/%Y'))
     end
   end
 end

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AnnotationsController < ApplicationController
-  before_action :set_annotation, only: [:show, :edit, :update, :destroy]
+  before_action :set_annotation, only: %i[show edit update destroy]
 
   # GET /annotations
   # GET /annotations.json
@@ -9,8 +11,7 @@ class AnnotationsController < ApplicationController
 
   # GET /annotations/1
   # GET /annotations/1.json
-  def show
-  end
+  def show; end
 
   # GET /annotations/new
   def new
@@ -18,8 +19,7 @@ class AnnotationsController < ApplicationController
   end
 
   # GET /annotations/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /annotations
   # POST /annotations.json
@@ -63,13 +63,14 @@ class AnnotationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_annotation
-      @annotation = Annotation.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def annotation_params
-      params.require(:annotation).permit(:title, :content, :category_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_annotation
+    @annotation = Annotation.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def annotation_params
+    params.require(:annotation).permit(:title, :content, :category_id)
+  end
 end

@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.feature 'User managing categories:' do
-
   context 'managing categories:' do
-    before { login_as(user, :scope => :user) }
+    before { login_as(user, scope: :user) }
 
-    let(:user)  { create :user }
+    let(:user) { create :user }
 
     it 'user create a category:' do
       visit categories_path

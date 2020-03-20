@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Review do
-
   context 'Generating reviews:' do
     it 'generate a WEEKLY review after create a reviewable:' do
       new_annotation = build :annotation
 
-      expect{new_annotation.save!}.to change(Review, :count).by(1)
+      expect { new_annotation.save! }.to change(Review, :count).by(1)
       expect(Review.last.date.to_date).to eq((new_annotation.created_at + 1.weeks).to_date)
     end
 
@@ -17,7 +18,7 @@ describe Review do
 
       # Going to the next week
       Timecop.travel(DateTime.now + 1.weeks) do
-        expect{first_week_review.mark_as_done}.to change(Review, :count).by(1)
+        expect { first_week_review.mark_as_done }.to change(Review, :count).by(1)
         expect(annotation.reviews.last.date.to_date).to eq((first_week_review.date + 1.weeks).to_date)
       end
     end
@@ -26,7 +27,7 @@ describe Review do
       annotation = create :annotation_on_the_last_weekly_review
 
       last_week_review = annotation.reviews.last
-      expect{last_week_review.mark_as_done}.to change(Review, :count).by(1)
+      expect { last_week_review.mark_as_done }.to change(Review, :count).by(1)
 
       # the first monthly review
       expect(annotation.reviews.last.date.to_date).to eq((DateTime.now + 1.months).to_date)
@@ -34,7 +35,7 @@ describe Review do
       # Going to the next month
       Timecop.travel(DateTime.now + 1.month) do
         last_month_review = annotation.reviews.last
-        expect{last_month_review.mark_as_done}.to change(Review, :count).by(1)
+        expect { last_month_review.mark_as_done }.to change(Review, :count).by(1)
 
         # the second monthly review
         expect(annotation.reviews.last.date.to_date).to eq((DateTime.now + 1.months).to_date)
@@ -59,7 +60,7 @@ describe Review do
       annotation = create :annotation_on_the_last_review_ever
 
       last_review = annotation.reviews.last
-      expect{last_review.mark_as_done}.to_not change(Review, :count)
+      expect { last_review.mark_as_done }.to_not change(Review, :count)
     end
   end
 
@@ -67,7 +68,7 @@ describe Review do
     it 'remove all reviews when a reviewable is being deleted:' do
       annotation = create :annotation_2_weekly_reviews_done
 
-      expect{annotation.destroy}.to change(Review, :count).by(-3)
+      expect { annotation.destroy }.to change(Review, :count).by(-3)
     end
   end
 
@@ -75,7 +76,7 @@ describe Review do
     it 'randomizing 7 reviews in a week:' do
       user = create :user
 
-      (1..7).each do |n|
+      (1..7).each do |_n|
         create :annotation, user: user
       end
 
@@ -93,7 +94,7 @@ describe Review do
     it 'randomizing 7 reviews from different dates in a week:' do
       user = create :user
 
-      (1..7).each do |n|
+      (1..7).each do |_n|
         annotation = create :annotation, user: user
         review = annotation.reviews.first
         review.update_attribute(:date, review.date - rand(1..10).days)

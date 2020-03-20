@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:mark_as_done]
 
@@ -10,9 +12,7 @@ class ReviewsController < ApplicationController
   end
 
   def mark_all_reviews_as_done
-    Review.today_reviews(current_user.id).each do |review|
-      review.mark_as_done
-    end
+    Review.today_reviews(current_user.id).each(&:mark_as_done)
     flash[:notice] = 'Congratulations! All reviews done.'
     respond_to do |format|
       format.html { redirect_to dashboard_path }
@@ -28,7 +28,8 @@ class ReviewsController < ApplicationController
   end
 
   private
-    def set_review
-      @review = Review.find(params[:id])
-    end
+
+  def set_review
+    @review = Review.find(params[:id])
+  end
 end

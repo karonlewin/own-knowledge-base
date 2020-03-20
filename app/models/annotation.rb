@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Annotation < ApplicationRecord
   include ReviewGenerator
   has_many :reviews, as: :reviewable, dependent: :destroy
