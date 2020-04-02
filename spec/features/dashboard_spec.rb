@@ -7,7 +7,7 @@ RSpec.feature 'User at dashboard:' do
   let(:user) { create :user }
 
   context 'reviewing annotations:' do
-    it 'user sees just 1 unreviewed annotation in 1 week from now:' do
+    xit 'user sees just 1 unreviewed annotation in 1 week from now:' do
       annotation = create :annotation, user: user
       reviews    = annotation.reviews
 
@@ -18,7 +18,7 @@ RSpec.feature 'User at dashboard:' do
       end
     end
 
-    it 'user sees just 1 unreviewed annotation in 3 weeks from now (first 2 reviews already done):' do
+    xit 'user sees just 1 unreviewed annotation in 3 weeks from now (first 2 reviews already done):' do
       annotation = create :annotation_2_weekly_reviews_done, user: user
       reviews    = annotation.reviews
 
@@ -31,7 +31,7 @@ RSpec.feature 'User at dashboard:' do
       end
     end
 
-    it 'user marking a review as done:' do
+    xit 'user marking a review as done:' do
       annotation = create :annotation, user: user
       reviews    = annotation.reviews
       actual_review = reviews.first
@@ -53,7 +53,7 @@ RSpec.feature 'User at dashboard:' do
       end
     end
 
-    it 'user marking all reviews as done with 1 click:' do
+    xit 'user marking all reviews as done with 1 click:' do
       annotations = []
       reviews = []
       (1..3).each do |_n|
@@ -84,7 +84,7 @@ RSpec.feature 'User at dashboard:' do
       end
     end
 
-    it 'user cannot read other user\'s reviews:' do
+    xit 'user cannot read other user\'s reviews:' do
       annotation = create :annotation, user: user
       annotation_from_other_user = create :annotation
 
