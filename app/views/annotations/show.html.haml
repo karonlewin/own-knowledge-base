@@ -1,0 +1,22 @@
+%p{:id => 'notice'}
+  =notice
+
+%p
+  %strong Title
+  =@annotation.title
+
+%p
+  %strong='Content'
+  =@annotation.content
+
+%p
+  %strong='Category'
+  =@annotation.category.name
+
+%p
+  %strong='Next review date'
+  =@annotation.next_review.date.strftime("%d/%m/%Y")
+
+=link_to 'Dashboard', dashboard_path
+=link_to 'Edit', edit_annotation_path(@annotation)
+=link_to 'Back', annotations_path
